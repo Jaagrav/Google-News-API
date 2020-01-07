@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News API</title>
+    <link rel="icon"
+        href="https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=w300">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Nunito&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: rgb(147, 255, 156);
+        }
+
+        .heading {
+            position: fixed;
+            height: 300px;
+            width: 100%;
+            background: linear-gradient(rgb(0, 0, 255), rgb(100, 98, 255), transparent);
+            margin: auto;
+            top: 0;
+            right: 0;
+            left: 0;
+        }
+
+        .logo {
+            position: fixed;
+            height: 120px;
+            z-index: 5;
+            margin: auto;
+            top: 5%;
+            right: 0;
+            left: 0;
+        }
+
+        .searchNews {
+            position: absolute;
+            height: 25px;
+            width: 70%;
+            margin: auto;
+            right: 0;
+            left: 0;
+            font-family: 'Montserrat', sans-serif;
+            top: 60%;
+            border-radius: 50px;
+            border: 0;
+            outline: none;
+            padding: 10px;
+        }
+
+        .newsList {
+            position: absolute;
+            height: 60%;
+            width: 100%;
+            margin: auto;
+            font-family: 'Montserrat', sans-serif;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .article {
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            height: auto;
+            width: 90%;
+            background: rgb(255, 255, 255);
+            margin: auto;
+            right: 0;
+            left: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .img {
+            position: relative;
+            width: 100%;
+        }
+
+        .text {
+            position: relative;
+            margin: 10px;
+            font-size: 30px;
+        }
+
+        .writer {
+            position: relative;
+            margin-left: 10px;
+            font-style: italic;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .desc {
+            position: relative;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .BG {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            margin: auto;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            z-index: -4;
+        }
+
+        .preloader {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 7;
+            background: #fff;
+            margin: auto;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            transition: 1.5s ease;
+        }
+
+        .plogo {
+            position: absolute;
+            height: 100px;
+            margin: auto;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+
+        .gif {
+            position: absolute;
+            height: 80px;
+            margin: auto;
+            right: 0;
+            left: 0;
+            bottom: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://source.unsplash.com/900x1500/?city" class="BG">
+    <img src="https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=w300"
+        class="logo">
+    <div class="heading">
+        <input type="search" class="searchNews" onchange="searchNews(document.querySelector('.searchNews').value)"
+            placeholder="Search News...">
+    </div>
+    <div class="newsList"></div>
+    <div class="preloader">
+        <img src="https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=w300"
+            class="plogo">
+        <img src="https://gifimage.net/wp-content/uploads/2018/04/loading-gif-android-12.gif" class="gif">
+    </div>
+    <script>
+        window.onload = function () {
+            document.querySelector(".preloader").style.transform = 'translateY(-100%)';
+        }
+        searchNews("trending");
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        function searchNews(x) {
+            document.querySelector(".newsList").innerHTML = "";
+            var api = "https://newsapi.org/v2/everything?q=" + x + "&from=2020-01-01&apiKey=19a326bc8caa4a66af925d42a9949da0"
+            $.getJSON(api, callback);
+        }
+        function callback(data) {
+            console.log(data)
+            for (var i = 0; i < data.articles.length; i++) {
+                if (data.articles[i].urlToImage != "")
+                    document.querySelector(".newsList").innerHTML += '<div class="article"><a target = "_blank" href=' + data.articles[i].url + '><img src="' + data.articles[i].urlToImage + '" class="img"></a>' + '<div class="text">' + data.articles[i].title + '</div><div class="writer">' + ((data.articles[i].author == null) ? "By Anonymous" : "By " + data.articles[i].author) + " • " + data.articles[i].publishedAt.substring(8, 10) + " " + months[parseInt(data.articles[i].publishedAt.substring(5, 7))] + " " + data.articles[i].publishedAt.substring(0, 4) + '</div><div class="desc">' + data.articles[i].description + '</div></div><br>';
+            }
+        }
+    </script>
+</body>
+
+</html>
