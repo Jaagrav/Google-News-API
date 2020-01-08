@@ -180,7 +180,7 @@
             console.log(data)
             for (var i = 0; i < data.articles.length; i++) {
                 if (data.articles[i].urlToImage != "")
-                    document.querySelector(".newsList").innerHTML += '<div class="article"><a target = "_blank" href=' + data.articles[i].url + '><img src="' + data.articles[i].urlToImage + '" class="img"></a>' + '<div class="text">' + data.articles[i].title + '</div><div class="writer">' + ((data.articles[i].author == null) ? "By Anonymous" : "By " + data.articles[i].author) + " • " + data.articles[i].publishedAt.substring(8, 10) + " " + months[parseInt(data.articles[i].publishedAt.substring(5, 7))-1] + " " + data.articles[i].publishedAt.substring(0, 4) + '</div><div class="desc">' + data.articles[i].description + '</div></div><br>';
+                    document.querySelector(".newsList").innerHTML += '<a target = "_blank" href=' + data.articles[i].url + '><div class="article"><img src="' + data.articles[i].urlToImage + '" class="img">' + '<div class="text">' + data.articles[i].title + '</div><div class="writer">' + ((data.articles[i].author == null) ? "By Anonymous" : "By " + data.articles[i].author) + " • " + data.articles[i].publishedAt.substring(8, 10) + " " + months[parseInt(data.articles[i].publishedAt.substring(5, 7))-1] + " " + data.articles[i].publishedAt.substring(0, 4) + '</div><div class="desc">' + data.articles[i].description + '</div></div></a><br>';
             }
         }
     </script>
