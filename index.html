@@ -173,7 +173,7 @@
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         function searchNews(x) {
             document.querySelector(".newsList").innerHTML = "";
-            var api = "https://newsapi.org/v2/everything?q=" + x + "&from=2020-01-01&apiKey=19a326bc8caa4a66af925d42a9949da0"
+            var api = "https://newsapi.org/v2/everything?q=" + x + "&from=2020-01-01&sortBy=publishedAt&apiKey=19a326bc8caa4a66af925d42a9949da0"
             $.getJSON(api, callback);
         }
         function callback(data) {
